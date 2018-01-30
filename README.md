@@ -10,8 +10,7 @@ There are 6 steps in this workflow:
 
 ## 1. Getting "sdf" file(s)
 - We will do pharmacophore-based virtual screening, so we need to find ligands having similar pharmacophore features. To do that, we will use Pharmit online tool (http://pharmit.csb.pitt.edu). 
-The Pharmit searches for your query in large compound databases, and provides an "sdf" file that you can download to your own computer.
-The file would probably a zipped sdf file. You do not need to unzip that file since the Schrödinger software can read also zipped sdf files.
+The Pharmit searches for your query in large compound databases, and provides an "sdf" file that you can download to your computer. (The file would probably be a zipped sdf file. You do not need to unzip that file since the Schrödinger software can read also zipped sdf files).
 
 ## 2. Converting "sdf" files into "mae" files
 - First, we need to log in HPCC and set environmental variables in home folder. Please enter below commands:
@@ -19,39 +18,19 @@ The file would probably a zipped sdf file. You do not need to unzip that file si
 module load schrodinger
 export schrodinger=/opt/software/modulefiles/binaries/schrodinger/suite2016-2.lua
 
-- You can check if the Schrödinger environment is set correctly:
-
-$SCHRODINGER
-
-This command would give you "  " meaning that it is correctly set.
-
 - Ask for 1 node with 28 processors in HPCC:
 
 qsub -I -l nodes=1:ppn=28 -l walltime=168:00:00 -l mem=256gb
 
-- Make a shell script having two lines given below and name the file as "sdfconvert.sh".
+- Make your all shell scripts executable using the command: 
 
-#!/bin/bash                                                                                                                                                                     
-/opt/software/schrodinger/suite_2016-2/ligprep -LOCAL -HOST localhost:28 -i 2 -r 1 -s 4 -t 4 -isd file.sdf -omae outputfile.mae
-
-- Make the script executable using the command: 
-
-chmod +x convertsdf.sh
+chmod +x *.sh
 
 - Run your shell script:
 
 nohup ./convertsdf.sh & 
 
 ## 3. Quickprop
-
-- Make a script having two lines given below and name the file as "qikpropstep.sh"
-
-#!/bin/bash                                                                                                                                                                     
-/opt/software/schrodinger/suite_2016-2/qikprop -LOCAL -nosa -nosim  outputfile.mae
-
-- Make the script executable using the command: 
-
-chmod +x qikpropstep.sh
 
 - Run your shell script:
 
@@ -64,8 +43,9 @@ i)   Compounds with molecular weight less than 225 and greater than 550
 ii)  The Log P  0<xx<4.5
 iii) Polar surface area 40<xx<170 square angstroms
 
-#!/bin/bash                                                                                                                                                                     
-/opt/software/schrodinger/suite_2016-2/utilities/ligfilter -LOCAL  -e "r_qp_mol_MW >= 225" -e "r_qp_mol_MW <= 550" -e "r_qp_QPlogPo/w > 0" -e "r_qp_QPlogPo/w < 4.5" -e "r_qp_FISA > 40" -e "r_qp_FISA < 170" -o filter_outputfile-out.mae outputfile-out.mae
+- Run your shell script:
+
+nohup ./filteringstep.sh & 
 
 ## 5. Glide Docking 
 ### 5.1 Receptor Preparation:
@@ -74,7 +54,7 @@ iii) Polar surface area 40<xx<170 square angstroms
 
 - Copy your protein structure to a folder in your folder on HPCC. Enter the command given below to convert ".pdb" file into ".mae" file (Maestro):
 
-$SCHRODINGER/utilities/prepwizard -WAIT -fix receptor.pdb rec_prep.mae  
+$SCHRODINGER/utilities/prepwizard -WAIT -fix receptor.pdb receptor_prep.mae  
 
 
 ### 5.2. Ligand Preparation:
@@ -92,41 +72,20 @@ $SCHRODINGER/ligprep –WAIT –W e,-ph,7.0,-pht,2.0 –epik –i 1 –r 1 –nz
 
 grep HETATM protein.pdb| grep “LIG” | awk '{sumx+=$7; sumy+=$8; sumz+=$9; print sumx/NR, sumy/NR, sumz/NR}' 
 
-- Open a new file and name it as "grid.in". Copy the lines below into "grid.in" file. Rename your receptor.mae file and paste correct GRID_CENTER x,y,z coordinates 
-
-USECOMPMAE YES
-INNERBOX 10, 10, 10
-ACTXRANGE 30.000000
-ACTYRANGE 30.000000
-ACTZRANGE 30.000000
-GRID_CENTER 9.940000, -8.310000, -11.660000
-OUTERBOX 30.000000, 30.000000, 30.000000
-ENTRYTITLE 3TZR
-GRIDFILE grid.zip
-RECEP_FILE 3TZR_prepared.mae
-
+- Open "grid.in" file and enter correct GRID_CENTER x,y,z coordinates (also correct RECEP_FILE name).
 
 ### 5.4. Job Submission:
 
-- Make a file that has these lines below (check file GRIDFILE and LIGANDFILE names, and enter which PRECISION* method you would like to use):
-
-WRITEREPT YES
-USECOMPMAE YES
-POSTDOCK_NPOSE 10
-MAXREF 800
-RINGCONFCUT 2.500000
-GRIDFILE grid.zip
-LIGANDFILE  ligprep.mae
-PRECISION HTVS
-
+- Open "grid_htvs.in" file and make  necessart changes for the GRIDFILE and LIGANDFILE names, or PRECISION* method that you would like to use.
 
 *PRECISION methods:
 1- HTVS: High Throughput Virtual Screening that is a very fast evaluation method for very large libraries.
 2- SP: Standard-Precision that is a quick way to evaluate the poses. SP is also used for high-throughput virtual screening of big libraries.
 3- XP: Extra-Precision that is a refinement tool used only for very small libraries or a good subset of big library that has been pre-evaluated with HTVS or SP score, because it needs more computational time.
 
+- Submit docking job:
 
-$SCHRODINGER/glide -WAIT —LOCAL NJOBS 25 glide_rgs_htvs.in
+$SCHRODINGER/glide -WAIT —LOCAL NJOBS 25 glide_htvs.in
 
 ### 6. Analysis of docking results
 
