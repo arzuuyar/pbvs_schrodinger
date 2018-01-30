@@ -15,26 +15,26 @@ The Pharmit searches for your query in large compound databases, and provides an
 ## 2. Converting "sdf" files into "mae" files
 - First, we need to log in HPCC and set environmental variables in home folder. Please enter below commands:
 
-module load schrodinger
-export schrodinger=/opt/software/modulefiles/binaries/schrodinger/suite2016-2.lua
+`module load schrodinger
+export schrodinger=/opt/software/modulefiles/binaries/schrodinger/suite2016-2.lua`
 
 - Ask for 1 node with 28 processors in HPCC:
 
-qsub -I -l nodes=1:ppn=28 -l walltime=168:00:00 -l mem=256gb
+`qsub -I -l nodes=1:ppn=28 -l walltime=168:00:00 -l mem=256gb`
 
 - Make your all shell scripts executable using the command: 
 
-chmod +x *.sh
+`chmod +x *.sh`
 
 - Run your shell script:
 
-nohup ./convertsdf.sh & 
+`nohup ./convertsdf.sh &` 
 
 ## 3. Quickprop
 
-- Run your shell script:
+- Run "qikpropstep.sh" script:
 
-nohup ./qikpropstep.sh & 
+`nohup ./qikpropstep.sh &` 
 
 ## 4. Filtering
 
@@ -45,7 +45,7 @@ iii) Polar surface area 40<xx<170 square angstroms
 
 - Run your shell script:
 
-nohup ./filteringstep.sh & 
+`nohup ./filteringstep.sh &` 
 
 ## 5. Glide Docking 
 ### 5.1 Receptor Preparation:
@@ -54,23 +54,23 @@ nohup ./filteringstep.sh &
 
 - Copy your protein structure to a folder in your folder on HPCC. Enter the command given below to convert ".pdb" file into ".mae" file (Maestro):
 
-$SCHRODINGER/utilities/prepwizard -WAIT -fix receptor.pdb receptor_prep.mae  
+`$SCHRODINGER/utilities/prepwizard -WAIT -fix receptor.pdb receptor_prep.mae`  
 
 
 ### 5.2. Ligand Preparation:
 
 - Download ligand structure data file (".sdf") from RCSB website using PDB ID of the receptor. Check how many molecules there are. Remove any unwanted copies. Use one of the commands below: 
 
-$SCHRODINGER/ligprep –WAIT -i 2 -r 1 -s 4 -t 4 -isd ligand.sdf -omae ligprep.mae
+`$SCHRODINGER/ligprep –WAIT -i 2 -r 1 -s 4 -t 4 -isd ligand.sdf -omae ligprep.mae`
 
-$SCHRODINGER/ligprep –WAIT –W e,-ph,7.0,-pht,2.0 –epik –i 1 –r 1 –nz –bff 14 –ac –isd ligand.sdf –omae ligprep.mae
+`$SCHRODINGER/ligprep –WAIT –W e,-ph,7.0,-pht,2.0 –epik –i 1 –r 1 –nz –bff 14 –ac –isd ligand.sdf –omae ligprep.mae`
 
 
 ### 5.3. Grid Generation:
 
 - We need to extract the ligand coordinates from the original pdb file. Check the three-letter name of the ligand in the pdb file and use this name to grep coordinates and calculate the average coordinates: Here we assume it is "LIG":
 
-grep HETATM protein.pdb| grep “LIG” | awk '{sumx+=$7; sumy+=$8; sumz+=$9; print sumx/NR, sumy/NR, sumz/NR}' 
+`grep HETATM protein.pdb| grep “LIG” | awk '{sumx+=$7; sumy+=$8; sumz+=$9; print sumx/NR, sumy/NR, sumz/NR}'` 
 
 - Open "grid.in" file and enter correct GRID_CENTER x,y,z coordinates (also correct RECEP_FILE name).
 
@@ -85,7 +85,7 @@ grep HETATM protein.pdb| grep “LIG” | awk '{sumx+=$7; sumy+=$8; sumz+=$9; pr
 
 - Submit docking job:
 
-$SCHRODINGER/glide -WAIT —LOCAL NJOBS 25 glide_htvs.in
+`$SCHRODINGER/glide -WAIT —LOCAL NJOBS 25 glide_htvs.in`
 
 ### 6. Analysis of docking results
 
@@ -93,6 +93,6 @@ $SCHRODINGER/glide -WAIT —LOCAL NJOBS 25 glide_htvs.in
 
 EXTRAS:
 Token: MSU has 25 tokens for Schrödinger Software. Some modules or packages require more than one token like Glide docking needs 5 for each submission.
-How to check license usage amounts in HPCC: lmstat -a -c 27008@lm-01.i
+How to check license usage amounts in HPCC: `lmstat -a -c 27008@lm-01.i`
 
 
