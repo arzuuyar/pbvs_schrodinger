@@ -128,7 +128,7 @@ PRECISION HTVS
 
 $SCHRODINGER/glide -WAIT —LOCAL NJOBS 25 glide_rgs_htvs.in
 
-### 5.6. Analysis of docking results
+### 6. Analysis of docking results
 
 
 
