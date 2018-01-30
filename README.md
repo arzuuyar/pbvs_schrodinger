@@ -130,7 +130,7 @@ $SCHRODINGER/glide -WAIT —LOCAL NJOBS 25 glide_rgs_htvs.in
 
 ### 6. Analysis of docking results
 
-
+..........
 
 EXTRAS:
 Token: MSU has 25 tokens for Schrödinger Software. Some modules or packages require more than one token like Glide docking needs 5 for each submission.
