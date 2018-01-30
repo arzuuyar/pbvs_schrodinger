@@ -1,0 +1,2 @@
+#!/bin/bash                                                                                                                                                                     
+/opt/software/schrodinger/suite_2016-2/utilities/ligfilter -LOCAL  -e "r_qp_mol_MW >= 225" -e "r_qp_mol_MW <= 550" -e "r_qp_QPlogPo/w > 0" -e "r_qp_QPlogPo/w < 4.5" -e "r_qp_FISA > 40" -e "r_qp_FISA < 170" -o filter_outputfile-out.mae queryoutputfile-out.mae
