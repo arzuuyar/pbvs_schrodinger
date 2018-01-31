@@ -32,7 +32,7 @@ export schrodinger=/opt/software/modulefiles/binaries/schrodinger/suite2016-2.lu
 
 ## 3. Quickprop
 
-- Run "qikpropstep.sh" script:
+- To calculate ADME properties run "qikpropstep.sh" script:
 
 `nohup ./qikpropstep.sh &` 
 
