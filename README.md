@@ -16,6 +16,7 @@ The Pharmit searches for your query in large compound databases, and provides an
 - First, we need to log in HPCC and set environmental variables in home folder. Please enter below commands:
 
 `module load schrodinger`
+
 `export schrodinger=/opt/software/modulefiles/binaries/schrodinger/suite2016-2.lua`
 
 - Ask for 1 node with 28 processors in HPCC:
