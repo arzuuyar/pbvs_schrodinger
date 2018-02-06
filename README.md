@@ -13,15 +13,16 @@ There are 6 steps in this workflow:
 The Pharmit searches for your query in large compound databases, and provides an "sdf" file that you can download to your computer. (The file would probably be a zipped sdf file. You do not need to unzip that file since the Schrödinger software can read also zipped sdf files).
 
 ## 2. Converting "sdf" files into "mae" files
-- First, we need to log in HPCC and set environmental variables in home folder. Please enter below commands:
+- First, we need to log in HPCC and ask for 1 node with 28 processors in HPCC:
+
+`qsub -I -l nodes=1:ppn=28 -l walltime=168:00:00 -l mem=256gb`
+
+- Set environmental variables in your home folder. Please enter below commands:
 
 `module load schrodinger`
 
 `export schrodinger=/opt/software/modulefiles/binaries/schrodinger/suite2016-2.lua`
 
-- Ask for 1 node with 28 processors in HPCC:
-
-`qsub -I -l nodes=1:ppn=28 -l walltime=168:00:00 -l mem=256gb`
 
 - Make your all shell scripts executable using the command: 
 
