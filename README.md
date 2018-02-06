@@ -28,13 +28,13 @@ The Pharmit searches for your query in large compound databases, and provides an
 
 `chmod +x *.sh`
 
-- Run your shell script:
+- Make necessary changes in "convertsdf.sh" file (like input and output file names), and run your shell script:
 
 `nohup ./convertsdf.sh &` 
 
 ## 3. Quickprop
 
-- To calculate ADME properties run "qikpropstep.sh" script:
+- To calculate ADME properties run "qikpropstep.sh" script (make necessary changes like input and output file names):
 
 `nohup ./qikpropstep.sh &` 
 
@@ -45,7 +45,7 @@ i)   Compounds with molecular weight less than 225 and greater than 550
 ii)  The Log P  0<xx<4.5
 iii) Polar surface area 40<xx<170 square angstroms
 
-- Run your shell script:
+- Make necessary changes like input and output file names, and run your shell script:
 
 `nohup ./filteringstep.sh &` 
 
