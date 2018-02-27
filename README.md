@@ -76,6 +76,8 @@ iii) Polar surface area 40<xx<170 square angstroms
 
 - Open "grid.in" file and enter correct GRID_CENTER x,y,z coordinates (also correct RECEP_FILE name).
 
+`$SCHRODINGER/glide -WAIT grid.in`
+
 ### 5.4. Job Submission:
 
 - Open "grid_htvs.in" file and make  necessart changes for the GRIDFILE and LIGANDFILE names, or PRECISION* method that you would like to use.
