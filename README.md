@@ -72,7 +72,7 @@ iii) Polar surface area 40<xx<170 square angstroms
 
 - We need to extract the ligand coordinates from the original pdb file. Check the three-letter name of the ligand in the pdb file and use this name to grep coordinates and calculate the average coordinates: Here we assume it is "LIG":
 
-`grep HETATM protein.pdb| grep “LIG” | awk '{sumx+=$7; sumy+=$8; sumz+=$9; print sumx/NR, sumy/NR, sumz/NR}'` 
+`grep "HETATM" protein.pdb| grep "LIG" | awk '{sumx+=$7; sumy+=$8; sumz+=$9; print sumx/NR, sumy/NR, sumz/NR}'` 
 
 - Open "grid.in" file and enter correct GRID_CENTER x,y,z coordinates (also correct RECEP_FILE name).
 
