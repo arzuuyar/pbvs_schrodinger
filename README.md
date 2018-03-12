@@ -89,8 +89,8 @@ iii) Polar surface area 40<xx<170 square angstroms
 
 - Submit docking job:
 
-`$SCHRODINGER/glide -WAIT —LOCAL NJOBS 25 glide_htvs.in` or
-`$SCHRODINGER/glide -WAIT -HOST localhost:25 glide_htvs.in`
+`/opt/software/schrodinger/suite_2016-2/glide -WAIT -LOCAL -HOST localhost:25 glide_rgs_htvs.in`
+
 
 ### 6. Analysis of docking results
 
