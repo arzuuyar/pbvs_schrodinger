@@ -41,7 +41,7 @@ The Pharmit searches for your query in large compound databases, and provides an
 ## 4. Filtering
 
 Here we have three criteria for filtering:
-i)   Compounds with molecular weight greater than 225 and less than 550
+i)   225 <= MW =< 550 
 ii)  The Log P  0<xx<4.5
 iii) Polar surface area 40<xx<170 square angstroms
 
