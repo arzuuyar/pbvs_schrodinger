@@ -21,8 +21,6 @@ The Pharmit searches for your query in large compound databases, and provides an
 
 `module load schrodinger`
 
-`export schrodinger=/opt/software/modulefiles/binaries/schrodinger/suite2016-2.lua`
-
 
 - Make your all shell scripts executable using the command: 
 
