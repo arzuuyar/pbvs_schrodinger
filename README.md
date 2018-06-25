@@ -93,7 +93,9 @@ localhost:25 asks for 25 processors, which might use all 25 licenses of Schrodin
 
 ### 6. Analysis of docking results
 
-..........
+Make a folder named "poses" and move your xxx_subjob_poses.zip file. Unzip this file in the poses folder and extract best poses for each ligand using Glide score cutoff value (-8.0). Here is the command:
+
+`$SCHRODINGER/utilities/glide_sort  -o bestposes.mae  -gscore_cut -8.0 -best *.maegz`
 
 EXTRAS:
 Token: MSU has 25 tokens for Schrödinger Software. Some modules or packages require more than one token like Glide docking needs 5 for each submission.
