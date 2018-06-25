@@ -59,7 +59,7 @@ iii) Polar surface area 40<xx<170 square angstroms
 `$SCHRODINGER/utilities/prepwizard -WAIT -fix receptor.pdb receptor_prep.mae`  
 
 
-### 5.2. Ligand Preparation:
+### 5.2. Ligand Preparation: (You can skip this step if you are doing virtual screening)
 
 - Download ligand structure data file (".sdf") from RCSB website using PDB ID of the receptor. Check how many molecules there are. Remove any unwanted copies. Use one of the commands below: 
 
@@ -91,6 +91,7 @@ iii) Polar surface area 40<xx<170 square angstroms
 
 `/opt/software/schrodinger/suite_2016-2/glide -WAIT -LOCAL -HOST localhost:25 glide_rgs_htvs.in`
 
+localhost:25 asks for 25 processors, which might use all 25 licenses of Schrodinger!!!
 
 ### 6. Analysis of docking results
 
