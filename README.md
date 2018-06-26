@@ -85,9 +85,9 @@ iii) Polar surface area 40<xx<170 square angstroms
 2- SP: Standard-Precision that is a quick way to evaluate the poses. SP is also used for high-throughput virtual screening of big libraries.
 3- XP: Extra-Precision that is a refinement tool used only for very small libraries or a good subset of big library that has been pre-evaluated with HTVS or SP score, because it needs more computational time.
 
-- Submit docking job:
+- Submit docking job using qsub, so you need to prepare a script including the command below:
 
-`/opt/software/schrodinger/suite_2016-2/glide -WAIT -LOCAL -HOST localhost:25 glide_rgs_htvs.in`
+`$SCHRODINGER/glide -WAIT -LOCAL -HOST localhost:25 glide_htvs.in`
 
 localhost:25 asks for 25 processors, which might use all 25 licenses of Schrodinger!!!
 
